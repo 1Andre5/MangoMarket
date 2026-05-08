@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MangoMarket | Cuenta</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="cuenta">
+    <header>
+        <nav>
+            <a class="logo" href="index.html">MangoMarket</a>
+
+            <ul>
+                <li><a href="index.html" data-nav="inicio">Inicio</a></li>
+                <li><a href="productos.html" data-nav="productos">Productos</a></li>
+                <li><a href="productores.html" data-nav="productores">Productores</a></li>
+                <li><a href="contacto.html" data-nav="contacto">Contacto</a></li>
+                <li><a href="cuenta.html" data-nav="cuenta">Cuenta</a></li>
+            </ul>
+
+            <a class="carrito-icono" href="carrito.html" data-nav="carrito">
+                Carrito: <span id="contador-carrito">0</span>
+            </a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-hero cuenta-hero">
+            <div>
+                <h1>Unete a MangoMarket</h1>
+                <p>Crea una cuenta o inicia sesion para guardar tus datos de pedido.</p>
+            </div>
+        </section>
+
+        <section class="cuenta">
+            <div class="estado-cuenta" id="estado-cuenta">
+                <h2>Cuenta</h2>
+                <p>Ingresa o registrate para comprar mas rapido.</p>
+            </div>
+
+            <div class="cuenta-grid">
+                <form class="formulario-cuenta" data-tipo="registro">
+                    <h2>Crear cuenta</h2>
+
+                    <label for="registro-nombre">Nombre completo</label>
+                    <input type="text" id="registro-nombre" name="nombre" placeholder="Tu nombre" required>
+
+                    <label for="registro-correo">Correo</label>
+                    <input type="email" id="registro-correo" name="correo" placeholder="tu@email.com" required>
+
+                    <label for="registro-password">Contrasena</label>
+                    <input type="password" id="registro-password" name="password" placeholder="Minimo 6 caracteres" minlength="6" required>
+
+                    <button type="submit">Registrarse</button>
+                </form>
+
+                <form class="formulario-cuenta" data-tipo="login">
+                    <h2>Iniciar sesion</h2>
+
+                    <label for="login-correo">Correo</label>
+                    <input type="email" id="login-correo" name="correo" placeholder="tu@email.com" required>
+
+                    <label for="login-password">Contrasena</label>
+                    <input type="password" id="login-password" name="password" placeholder="Tu contrasena" required>
+
+                    <button type="submit">Unirse</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 MangoMarket - Apoyando agricultores peruanos</p>
+    </footer>
+
+    <script src="carrito.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

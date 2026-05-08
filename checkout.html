@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MangoMarket | Finalizar compra</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="carrito">
+    <header>
+        <nav>
+            <a class="logo" href="index.html">MangoMarket</a>
+
+            <ul>
+                <li><a href="index.html" data-nav="inicio">Inicio</a></li>
+                <li><a href="productos.html" data-nav="productos">Productos</a></li>
+                <li><a href="productores.html" data-nav="productores">Productores</a></li>
+                <li><a href="contacto.html" data-nav="contacto">Contacto</a></li>
+                <li><a href="cuenta.html" data-nav="cuenta">Cuenta</a></li>
+            </ul>
+
+            <a class="carrito-icono" href="carrito.html" data-nav="carrito">
+                Carrito: <span id="contador-carrito">0</span>
+            </a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-hero checkout-hero">
+            <div>
+                <h1>Finalizar compra</h1>
+                <p>Completa tus datos, elige comprobante y confirma el pago.</p>
+            </div>
+        </section>
+
+        <section class="checkout">
+            <aside class="resumen-checkout">
+                <h2>Resumen</h2>
+                <div id="resumen-checkout"></div>
+                <h3>Total: S/ <span id="total-checkout">0</span></h3>
+                <a class="btn btn-secundario" href="carrito.html">Editar carrito</a>
+            </aside>
+
+            <form class="formulario-checkout" id="formulario-checkout">
+                <h2>Datos de compra</h2>
+
+                <label for="tipo-comprobante">Tipo de comprobante</label>
+                <select id="tipo-comprobante" name="tipoComprobante" required>
+                    <option value="boleta">Boleta</option>
+                    <option value="factura">Factura</option>
+                </select>
+
+                <div class="datos-comprobante" id="datos-boleta">
+                    <label for="boleta-nombre">Nombre completo</label>
+                    <input type="text" id="boleta-nombre" name="boletaNombre" placeholder="Nombre del comprador">
+
+                    <label for="boleta-dni">DNI</label>
+                    <input type="text" id="boleta-dni" name="dni" placeholder="8 digitos" maxlength="8" pattern="[0-9]{8}">
+                </div>
+
+                <div class="datos-comprobante oculto" id="datos-factura">
+                    <label for="factura-razon">Razon social</label>
+                    <input type="text" id="factura-razon" name="razonSocial" placeholder="Nombre de la empresa">
+
+                    <label for="factura-ruc">RUC</label>
+                    <input type="text" id="factura-ruc" name="ruc" placeholder="11 digitos" maxlength="11" pattern="[0-9]{11}">
+                </div>
+
+                <label for="correo-compra">Correo para enviar el comprobante</label>
+                <input type="email" id="correo-compra" name="correo" placeholder="tu@email.com" required>
+
+                <label for="telefono-compra">Telefono</label>
+                <input type="tel" id="telefono-compra" name="telefono" placeholder="+51 999 888 777" required>
+
+                <label for="direccion-compra">Direccion de entrega</label>
+                <input type="text" id="direccion-compra" name="direccion" placeholder="Av., calle, numero, referencia" required>
+
+                <label for="distrito-compra">Distrito y ciudad</label>
+                <input type="text" id="distrito-compra" name="distrito" placeholder="Distrito, ciudad" required>
+
+                <label for="metodo-pago">Metodo de pago</label>
+                <select id="metodo-pago" name="metodoPago" required>
+                    <option value="Tarjeta">Tarjeta</option>
+                    <option value="Yape o Plin">Yape o Plin</option>
+                    <option value="Transferencia bancaria">Transferencia bancaria</option>
+                </select>
+
+                <label for="numero-pago">Numero de tarjeta, operacion o referencia</label>
+                <input type="text" id="numero-pago" name="numeroPago" placeholder="Referencia del pago" required>
+
+                <label for="titular-pago">Titular del pago</label>
+                <input type="text" id="titular-pago" name="titularPago" placeholder="Nombre del titular" required>
+
+                <button type="submit">Pagar y generar comprobante</button>
+            </form>
+
+            <section class="comprobante oculto" id="comprobante-generado"></section>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 MangoMarket - Apoyando agricultores peruanos</p>
+    </footer>
+
+    <script src="carrito.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

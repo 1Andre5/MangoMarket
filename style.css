@@ -59,6 +59,12 @@ nav a.activo{
     white-space:nowrap;
 }
 
+.carrito-icono.activo{
+    border-bottom:none;
+    outline:2px solid white;
+    padding:10px 15px;
+}
+
 .hero{
     min-height:82vh;
     background:linear-gradient(rgba(0,0,0,0.34), rgba(0,0,0,0.34)),
@@ -111,7 +117,9 @@ button:hover,
 .intro,
 .contenido,
 .contacto,
-.productos{
+.productos,
+.cuenta,
+.checkout{
     padding:64px 6%;
 }
 
@@ -125,7 +133,9 @@ button:hover,
 .intro h2,
 .contenido h2,
 .contacto h2,
-.productos h2{
+.productos h2,
+.cuenta h2,
+.checkout h2{
     margin-bottom:22px;
     font-size:36px;
 }
@@ -189,6 +199,21 @@ button:hover,
         url('https://images.unsplash.com/photo-1605027990121-cbae9e0642df?q=80&w=1400&auto=format&fit=crop');
 }
 
+.carrito-hero{
+    background:linear-gradient(rgba(0,0,0,0.42), rgba(0,0,0,0.42)),
+        url('https://images.unsplash.com/photo-1519096845289-95806ee03a1a?q=80&w=1400&auto=format&fit=crop');
+}
+
+.cuenta-hero{
+    background:linear-gradient(rgba(0,0,0,0.42), rgba(0,0,0,0.42)),
+        url('https://images.unsplash.com/photo-1553279768-865429fa0078?q=80&w=1400&auto=format&fit=crop');
+}
+
+.checkout-hero{
+    background:linear-gradient(rgba(0,0,0,0.42), rgba(0,0,0,0.42)),
+        url('https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?q=80&w=1400&auto=format&fit=crop');
+}
+
 .productos{
     text-align:center;
 }
@@ -243,6 +268,15 @@ button:hover,
     background:#fff3cd;
 }
 
+.carrito-page{
+    min-height:420px;
+}
+
+.carrito-resumen{
+    max-width:860px;
+    margin:0 auto;
+}
+
 .carrito h2{
     margin-bottom:20px;
 }
@@ -254,6 +288,7 @@ button:hover,
 .item-carrito{
     display:flex;
     justify-content:space-between;
+    align-items:center;
     gap:20px;
     background:white;
     padding:15px;
@@ -261,10 +296,54 @@ button:hover,
     border-radius:8px;
 }
 
+.item-carrito div,
+.item-resumen{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    width:100%;
+}
+
+.item-carrito span,
+.item-resumen span{
+    white-space:nowrap;
+}
+
 .carrito-vacio{
     background:white;
     padding:16px;
     border-radius:8px;
+}
+
+.carrito-acciones{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+    margin-top:22px;
+}
+
+.btn-secundario{
+    background:#775200;
+}
+
+.btn-secundario:hover{
+    background:#5f4100;
+}
+
+.btn-eliminar{
+    background:#8f1f12;
+    padding:9px 14px;
+    font-size:14px;
+}
+
+.btn-eliminar:hover{
+    background:#70160d;
+}
+
+.deshabilitado{
+    opacity:0.55;
+    pointer-events:none;
 }
 
 .contacto{
@@ -288,17 +367,159 @@ button:hover,
     gap:14px;
 }
 
-.formulario-contacto label{
+.formulario-contacto label,
+.formulario-cuenta label{
     font-weight:bold;
 }
 
 .formulario-contacto input,
-.formulario-contacto textarea{
+.formulario-contacto textarea,
+.formulario-cuenta input,
+.formulario-checkout input,
+.formulario-checkout select{
     width:100%;
     padding:13px 14px;
     border:1px solid #d8c7a4;
     border-radius:8px;
     font-size:16px;
+}
+
+.cuenta{
+    display:grid;
+    gap:28px;
+}
+
+.estado-cuenta,
+.formulario-cuenta{
+    background:white;
+    border:1px solid #f1dfbd;
+    border-radius:8px;
+    padding:28px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.06);
+}
+
+.estado-cuenta p{
+    margin-bottom:18px;
+    line-height:1.6;
+}
+
+.cuenta-grid{
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+    gap:24px;
+}
+
+.formulario-cuenta{
+    display:grid;
+    gap:14px;
+}
+
+.checkout{
+    display:grid;
+    grid-template-columns:minmax(260px, 0.75fr) minmax(320px, 1.25fr);
+    gap:28px;
+    align-items:start;
+}
+
+.resumen-checkout,
+.formulario-checkout,
+.comprobante{
+    background:white;
+    border:1px solid #f1dfbd;
+    border-radius:8px;
+    padding:28px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.06);
+}
+
+.resumen-checkout{
+    position:sticky;
+    top:104px;
+}
+
+.formulario-checkout{
+    display:grid;
+    gap:14px;
+}
+
+.formulario-checkout label{
+    font-weight:bold;
+}
+
+.datos-comprobante{
+    display:grid;
+    gap:14px;
+}
+
+.item-resumen{
+    background:#fff8df;
+    border-radius:8px;
+    margin-bottom:10px;
+    padding:14px;
+}
+
+.oculto{
+    display:none;
+}
+
+.deshabilitado-formulario{
+    opacity:0.55;
+}
+
+.deshabilitado-formulario button,
+.deshabilitado-formulario input,
+.deshabilitado-formulario select{
+    pointer-events:none;
+}
+
+.comprobante{
+    grid-column:1 / -1;
+}
+
+.comprobante-encabezado{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:20px;
+    border-bottom:1px solid #f1dfbd;
+    padding-bottom:18px;
+    margin-bottom:18px;
+}
+
+.etiqueta-comprobante{
+    color:#b85f00;
+    font-weight:800;
+    text-transform:uppercase;
+}
+
+.comprobante-datos{
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+    gap:10px 24px;
+    margin-bottom:22px;
+}
+
+.comprobante-tabla{
+    border:1px solid #f1dfbd;
+    border-radius:8px;
+    overflow:hidden;
+}
+
+.comprobante-tabla div{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    padding:14px;
+    border-bottom:1px solid #f1dfbd;
+}
+
+.comprobante-tabla div:last-child{
+    border-bottom:none;
+}
+
+.totales-comprobante{
+    margin-top:20px;
+    text-align:right;
+    line-height:1.8;
 }
 
 footer{
@@ -319,8 +540,21 @@ footer{
     }
 
     .intro,
-    .contacto{
+    .contacto,
+    .cuenta-grid,
+    .checkout,
+    .comprobante-datos{
         grid-template-columns:1fr;
+    }
+
+    .resumen-checkout{
+        position:static;
+    }
+
+    .item-carrito,
+    .comprobante-encabezado{
+        align-items:stretch;
+        flex-direction:column;
     }
 
     .resumen-grid,
@@ -336,5 +570,34 @@ footer{
     .hero h1,
     .page-hero h1{
         font-size:40px;
+    }
+}
+
+@media print{
+    header,
+    footer,
+    .page-hero,
+    .resumen-checkout,
+    .formulario-checkout{
+        display:none;
+    }
+
+    body{
+        background:white;
+    }
+
+    .checkout{
+        display:block;
+        padding:0;
+    }
+
+    .comprobante{
+        border:none;
+        box-shadow:none;
+        display:block;
+    }
+
+    .comprobante button{
+        display:none;
     }
 }

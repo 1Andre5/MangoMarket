@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MangoMarket | Contacto</title>
+    <title>MangoMarket | Carrito</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body data-page="contacto">
+<body data-page="carrito">
     <header>
         <nav>
             <a class="logo" href="index.html">MangoMarket</a>
@@ -26,33 +26,24 @@
     </header>
 
     <main>
-        <section class="page-hero contacto-hero">
+        <section class="page-hero carrito-hero">
             <div>
-                <h1>Contacto</h1>
-                <p>Cuentanos que necesitas y coordinamos tu pedido.</p>
+                <h1>Carrito de Compras</h1>
+                <p>Revisa tus mangos seleccionados antes de coordinar el pedido.</p>
             </div>
         </section>
 
-        <section class="contacto">
-            <div class="datos-contacto">
-                <h2>Hablemos</h2>
-                <p><strong>WhatsApp:</strong> +51 999 888 777</p>
-                <p><strong>Correo:</strong> ventas@mangomarket.pe</p>
-                <p><strong>Atencion:</strong> Lunes a sabado, 8:00 a.m. - 6:00 p.m.</p>
+        <section class="carrito carrito-page">
+            <div class="carrito-resumen">
+                <h2>Tu pedido</h2>
+                <div id="lista-carrito"></div>
+                <h3>Total: S/ <span id="total">0</span></h3>
+                <div class="carrito-acciones">
+                    <a class="btn btn-secundario" href="productos.html">Seguir comprando</a>
+                    <a class="btn" id="boton-finalizar-compra" href="checkout.html">Finalizar compra</a>
+                    <button type="button" onclick="vaciarCarrito()">Vaciar carrito</button>
+                </div>
             </div>
-
-            <form class="formulario-contacto">
-                <label for="nombre">Nombre</label>
-                <input type="text" id="nombre" name="nombre" placeholder="Tu nombre">
-
-                <label for="correo">Correo</label>
-                <input type="email" id="correo" name="correo" placeholder="tu@email.com">
-
-                <label for="mensaje">Mensaje</label>
-                <textarea id="mensaje" name="mensaje" rows="5" placeholder="Escribe tu pedido o consulta"></textarea>
-
-                <button type="submit">Enviar mensaje</button>
-            </form>
         </section>
     </main>
 

@@ -1,6 +1,9 @@
 let carrito = JSON.parse(localStorage.getItem("mangoMarketCarrito")) || [];
 
-document.addEventListener("DOMContentLoaded", actualizarCarrito);
+document.addEventListener("DOMContentLoaded", () => {
+    actualizarCarrito();
+    prepararBotonFinalizarCompra();
+});
 
 function agregarCarrito(nombre, precio){
     carrito.push({
@@ -19,14 +22,36 @@ function vaciarCarrito(){
     actualizarCarrito();
 }
 
+function eliminarProductoCarrito(indice){
+    carrito.splice(indice, 1);
+    guardarCarrito();
+    actualizarCarrito();
+}
+
 function guardarCarrito(){
     localStorage.setItem("mangoMarketCarrito", JSON.stringify(carrito));
+}
+
+function prepararBotonFinalizarCompra(){
+    const botonFinalizar = document.getElementById("boton-finalizar-compra");
+
+    if(!botonFinalizar){
+        return;
+    }
+
+    botonFinalizar.addEventListener("click", evento => {
+        if(carrito.length === 0){
+            evento.preventDefault();
+            alert("Agrega al menos un producto antes de finalizar la compra.");
+        }
+    });
 }
 
 function actualizarCarrito(){
     const lista = document.getElementById("lista-carrito");
     const contador = document.getElementById("contador-carrito");
     const totalHTML = document.getElementById("total");
+    const botonFinalizar = document.getElementById("boton-finalizar-compra");
     const total = carrito.reduce((suma, producto) => suma + producto.precio, 0);
 
     if(contador){
@@ -35,6 +60,11 @@ function actualizarCarrito(){
 
     if(totalHTML){
         totalHTML.textContent = total;
+    }
+
+    if(botonFinalizar){
+        botonFinalizar.classList.toggle("deshabilitado", carrito.length === 0);
+        botonFinalizar.setAttribute("aria-disabled", carrito.length === 0);
     }
 
     if(!lista){
@@ -48,13 +78,18 @@ function actualizarCarrito(){
         return;
     }
 
-    carrito.forEach(producto => {
+    carrito.forEach((producto, indice) => {
         const div = document.createElement("div");
 
         div.classList.add("item-carrito");
         div.innerHTML = `
-            <strong>${producto.nombre}</strong>
-            <span>S/ ${producto.precio}</span>
+            <div>
+                <strong>${producto.nombre}</strong>
+                <span>S/ ${producto.precio}</span>
+            </div>
+            <button class="btn-eliminar" type="button" onclick="eliminarProductoCarrito(${indice})">
+                Eliminar
+            </button>
         `;
 
         lista.appendChild(div);
