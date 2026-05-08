@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MangoMarket | Productos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="productos">
+    <header>
+        <nav>
+            <a class="logo" href="index.html">MangoMarket</a>
+
+            <ul>
+                <li><a href="index.html" data-nav="inicio">Inicio</a></li>
+                <li><a href="productos.html" data-nav="productos">Productos</a></li>
+                <li><a href="productores.html" data-nav="productores">Productores</a></li>
+                <li><a href="contacto.html" data-nav="contacto">Contacto</a></li>
+            </ul>
+
+            <a class="carrito-icono" href="productos.html">
+                Carrito: <span id="contador-carrito">0</span>
+            </a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-hero productos-hero">
+            <div>
+                <h1>Nuestros Mangos</h1>
+                <p>Variedades frescas, dulces y listas para tu mesa.</p>
+            </div>
+        </section>
+
+        <section class="productos">
+            <h2>Catalogo</h2>
+            <div class="cards" id="lista-productos"></div>
+        </section>
+
+        <section class="carrito">
+            <h2>Carrito de Compras</h2>
+            <div id="lista-carrito"></div>
+            <h3>Total: S/ <span id="total">0</span></h3>
+            <button type="button" onclick="vaciarCarrito()">Vaciar carrito</button>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 MangoMarket - Apoyando agricultores peruanos</p>
+    </footer>
+
+    <script src="carrito.js"></script>
+    <script src="productos.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

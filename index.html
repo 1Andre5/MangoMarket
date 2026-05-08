@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MangoMarket | Inicio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="inicio">
+    <header>
+        <nav>
+            <a class="logo" href="index.html">MangoMarket</a>
+
+            <ul>
+                <li><a href="index.html" data-nav="inicio">Inicio</a></li>
+                <li><a href="productos.html" data-nav="productos">Productos</a></li>
+                <li><a href="productores.html" data-nav="productores">Productores</a></li>
+                <li><a href="contacto.html" data-nav="contacto">Contacto</a></li>
+            </ul>
+
+            <a class="carrito-icono" href="productos.html">
+                Carrito: <span id="contador-carrito">0</span>
+            </a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-text">
+                <h1>Mangos frescos del campo peruano</h1>
+                <p>
+                    Compra mangos seleccionados directamente de productores locales.
+                    Calidad, sabor y apoyo justo para agricultores peruanos.
+                </p>
+                <a class="btn" href="productos.html">Comprar Ahora</a>
+            </div>
+        </section>
+
+        <section class="intro">
+            <div>
+                <h2>Del productor a tu mesa</h2>
+                <p>
+                    MangoMarket conecta familias, restaurantes y negocios con mangos
+                    frescos cultivados con dedicacion en el norte del Peru.
+                </p>
+            </div>
+
+            <div class="resumen-grid">
+                <article>
+                    <span>01</span>
+                    <h3>Elige tus mangos</h3>
+                    <p>Revisa el catalogo y agrega tus variedades favoritas al carrito.</p>
+                </article>
+
+                <article>
+                    <span>02</span>
+                    <h3>Compra directo</h3>
+                    <p>Tu pedido apoya una cadena mas corta y precios mas justos.</p>
+                </article>
+
+                <article>
+                    <span>03</span>
+                    <h3>Recibe frescura</h3>
+                    <p>Coordinamos entregas pensadas para mantener el sabor natural.</p>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 MangoMarket - Apoyando agricultores peruanos</p>
+    </footer>
+
+    <script src="carrito.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

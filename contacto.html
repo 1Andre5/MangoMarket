@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MangoMarket | Contacto</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="contacto">
+    <header>
+        <nav>
+            <a class="logo" href="index.html">MangoMarket</a>
+
+            <ul>
+                <li><a href="index.html" data-nav="inicio">Inicio</a></li>
+                <li><a href="productos.html" data-nav="productos">Productos</a></li>
+                <li><a href="productores.html" data-nav="productores">Productores</a></li>
+                <li><a href="contacto.html" data-nav="contacto">Contacto</a></li>
+            </ul>
+
+            <a class="carrito-icono" href="productos.html">
+                Carrito: <span id="contador-carrito">0</span>
+            </a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-hero contacto-hero">
+            <div>
+                <h1>Contacto</h1>
+                <p>Cuentanos que necesitas y coordinamos tu pedido.</p>
+            </div>
+        </section>
+
+        <section class="contacto">
+            <div class="datos-contacto">
+                <h2>Hablemos</h2>
+                <p><strong>WhatsApp:</strong> +51 999 888 777</p>
+                <p><strong>Correo:</strong> ventas@mangomarket.pe</p>
+                <p><strong>Atencion:</strong> Lunes a sabado, 8:00 a.m. - 6:00 p.m.</p>
+            </div>
+
+            <form class="formulario-contacto">
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Tu nombre">
+
+                <label for="correo">Correo</label>
+                <input type="email" id="correo" name="correo" placeholder="tu@email.com">
+
+                <label for="mensaje">Mensaje</label>
+                <textarea id="mensaje" name="mensaje" rows="5" placeholder="Escribe tu pedido o consulta"></textarea>
+
+                <button type="submit">Enviar mensaje</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 MangoMarket - Apoyando agricultores peruanos</p>
+    </footer>
+
+    <script src="carrito.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
