@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     prepararFormulariosCuenta();
     actualizarEstadoCuenta();
     prepararCheckout();
+    prepararCarrusel();
 });
 
 function marcarPaginaActiva(){
@@ -110,6 +111,108 @@ function prepararCheckout(){
         evento.preventDefault();
         procesarCompra(formulario);
     });
+}
+
+function prepararCarrusel(){
+    const carrusel = document.querySelector("[data-carousel]");
+
+    if(!carrusel){
+        return;
+    }
+
+    const slides = Array.from(carrusel.querySelectorAll(".carrusel-slide"));
+    const puntos = Array.from(carrusel.querySelectorAll("[data-carousel-dot]"));
+    const botonAnterior = carrusel.querySelector("[data-carousel-prev]");
+    const botonSiguiente = carrusel.querySelector("[data-carousel-next]");
+    const progreso = carrusel.querySelector(".carrusel-progreso span");
+    let indiceActual = slides.findIndex(slide => slide.classList.contains("activo"));
+    let intervalo;
+
+    if(slides.length === 0){
+        return;
+    }
+
+    if(indiceActual < 0){
+        indiceActual = 0;
+    }
+
+    function mostrarSlide(indice){
+        indiceActual = (indice + slides.length) % slides.length;
+
+        slides.forEach((slide, posicion) => {
+            const esActivo = posicion === indiceActual;
+            const video = slide.querySelector("video");
+            slide.classList.toggle("activo", esActivo);
+            slide.setAttribute("aria-hidden", String(!esActivo));
+
+            if(video){
+                if(esActivo){
+                    video.play().catch(() => {});
+                }else{
+                    video.pause();
+                    video.currentTime = 0;
+                }
+            }
+        });
+
+        puntos.forEach((punto, posicion) => {
+            punto.classList.toggle("activo", posicion === indiceActual);
+        });
+
+        reiniciarProgreso();
+    }
+
+    function avanzar(){
+        mostrarSlide(indiceActual + 1);
+    }
+
+    function reiniciarAutoavance(){
+        clearInterval(intervalo);
+        intervalo = setInterval(avanzar, 4800);
+    }
+
+    function reiniciarProgreso(){
+        if(!progreso){
+            return;
+        }
+
+        progreso.style.animation = "none";
+        progreso.offsetHeight;
+        progreso.style.animation = "";
+    }
+
+    if(botonAnterior){
+        botonAnterior.addEventListener("click", () => {
+            mostrarSlide(indiceActual - 1);
+            reiniciarAutoavance();
+        });
+    }
+
+    if(botonSiguiente){
+        botonSiguiente.addEventListener("click", () => {
+            avanzar();
+            reiniciarAutoavance();
+        });
+    }
+
+    puntos.forEach(punto => {
+        punto.addEventListener("click", () => {
+            mostrarSlide(Number(punto.dataset.carouselDot));
+            reiniciarAutoavance();
+        });
+    });
+
+    document.addEventListener("visibilitychange", () => {
+        if(document.hidden){
+            clearInterval(intervalo);
+            return;
+        }
+
+        reiniciarAutoavance();
+    });
+
+    mostrarSlide(indiceActual);
+    reiniciarAutoavance();
 }
 
 function obtenerCarritoGuardado(){

@@ -26,44 +26,188 @@
     </header>
 
     <main>
-        <section class="hero">
+        <section class="hero hero-inicio video-hero">
+            <video class="video-fondo" autoplay muted loop playsinline aria-hidden="true" poster="https://images.unsplash.com/photo-1591073113125-e46713c829ed?q=80&w=1600&auto=format&fit=crop">
+                <source src="https://videos.pexels.com/video-files/1584823/1584823-hd_1920_1080_30fps.mp4" type="video/mp4">
+            </video>
+
             <div class="hero-text">
-                <h1>Mangos frescos del campo peruano</h1>
+                <span class="eyebrow">Caserio Molino El Carmen - Motupe</span>
+                <h1>Mangos frescos con una historia que se ve en movimiento</h1>
                 <p>
-                    Compra mangos seleccionados directamente de productores locales.
-                    Calidad, sabor y apoyo justo para agricultores peruanos.
+                    MangoMarket acerca el sabor del norte del Peru a familias y negocios,
+                    destacando la identidad rural de Molino El Carmen, una comunidad de Motupe
+                    vinculada al trabajo agricola, la cosecha y la vida de campo.
                 </p>
-                <a class="btn" href="productos.html">Comprar Ahora</a>
+                <div class="hero-acciones">
+                    <a class="btn" href="productos.html">Comprar ahora</a>
+                    <a class="btn btn-claro" href="#molino-el-carmen">Conocer el origen</a>
+                </div>
+            </div>
+
+            <div class="hero-panel" aria-label="Datos del origen">
+                <p class="panel-etiqueta">Origen destacado</p>
+                <h2>Molino El Carmen</h2>
+                <p>Caserio rural del distrito de Motupe, provincia y region Lambayeque.</p>
+                <div class="metricas-origen">
+                    <span><strong>Motupe</strong> Distrito</span>
+                    <span><strong>179 m</strong> Altitud aprox.</span>
+                    <span><strong>Rural</strong> Identidad local</span>
+                </div>
             </div>
         </section>
 
-        <section class="intro">
-            <div>
-                <h2>Del productor a tu mesa</h2>
+        <section class="carrusel-seccion" aria-labelledby="carrusel-titulo">
+            <div class="seccion-encabezado">
+                <span class="eyebrow">Campo, cosecha y comunidad</span>
+                <h2 id="carrusel-titulo">El camino del mango en video</h2>
                 <p>
-                    MangoMarket conecta familias, restaurantes y negocios con mangos
-                    frescos cultivados con dedicacion en el norte del Peru.
+                    Cada escena muestra una parte del proceso: cultivo, seleccion,
+                    trabajo en campo y entrega. La portada deja de sentirse estatica
+                    para contar el origen con movimiento.
+                </p>
+            </div>
+
+            <div class="carrusel" data-carousel>
+                <div class="carrusel-track">
+                    <article class="carrusel-slide activo">
+                        <video autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1553279768-865429fa0078?q=80&w=1500&auto=format&fit=crop">
+                            <source src="https://videos.pexels.com/video-files/2239153/2239153-hd_1920_1080_24fps.mp4" type="video/mp4">
+                        </video>
+                        <div class="slide-contenido">
+                            <span>01</span>
+                            <h3>Mangos creciendo en el arbol</h3>
+                            <p>El recorrido inicia en la planta, donde la fruta toma color, firmeza y dulzor antes de llegar al cliente.</p>
+                        </div>
+                    </article>
+
+                    <article class="carrusel-slide">
+                        <video muted loop playsinline poster="https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1500&auto=format&fit=crop">
+                            <source src="https://videos.pexels.com/video-files/6583135/6583135-hd_1920_1080_25fps.mp4" type="video/mp4">
+                        </video>
+                        <div class="slide-contenido">
+                            <span>02</span>
+                            <h3>Campo agricola con vida diaria</h3>
+                            <p>Molino El Carmen se presenta desde su identidad rural: caminos, parcelas y trabajo constante.</p>
+                        </div>
+                    </article>
+
+                    <article class="carrusel-slide">
+                        <video muted loop playsinline poster="https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?q=80&w=1500&auto=format&fit=crop">
+                            <source src="https://videos.pexels.com/video-files/7538751/7538751-hd_1920_1080_25fps.mp4" type="video/mp4">
+                        </video>
+                        <div class="slide-contenido">
+                            <span>03</span>
+                            <h3>Personas detras de la cosecha</h3>
+                            <p>Una cadena mas directa ayuda a cuidar la frescura y reconocer mejor el esfuerzo del trabajo agricola.</p>
+                        </div>
+                    </article>
+                </div>
+
+                <button class="carrusel-control anterior" type="button" data-carousel-prev aria-label="Escena anterior">&lsaquo;</button>
+                <button class="carrusel-control siguiente" type="button" data-carousel-next aria-label="Escena siguiente">&rsaquo;</button>
+
+                <div class="carrusel-progreso" aria-hidden="true"><span></span></div>
+
+                <div class="carrusel-puntos" aria-label="Navegacion del carrusel">
+                    <button class="activo" type="button" data-carousel-dot="0" aria-label="Ver escena 1"></button>
+                    <button type="button" data-carousel-dot="1" aria-label="Ver escena 2"></button>
+                    <button type="button" data-carousel-dot="2" aria-label="Ver escena 3"></button>
+                </div>
+            </div>
+        </section>
+
+        <section class="experiencia-webflow">
+            <video class="video-fondo" autoplay muted loop playsinline aria-hidden="true" poster="https://images.unsplash.com/photo-1553279768-865429fa0078?q=80&w=1600&auto=format&fit=crop">
+                <source src="https://videos.pexels.com/video-files/20054254/20054254-hd_1920_1080_25fps.mp4" type="video/mp4">
+            </video>
+            <div class="experiencia-contenido">
+                <span class="eyebrow">Experiencia inmersiva</span>
+                <h2>Una portada con ritmo, capas y profundidad visual</h2>
+                <p>
+                    Inspirada en composiciones modernas tipo Webflow, la pagina combina video,
+                    tarjetas de datos, texto editorial y transiciones suaves para que MangoMarket
+                    se sienta mas actual y confiable.
+                </p>
+                <div class="flujo-grid">
+                    <article>
+                        <strong>01</strong>
+                        <h3>Origen visible</h3>
+                        <p>Molino El Carmen aparece desde el primer vistazo como parte central de la marca.</p>
+                    </article>
+                    <article>
+                        <strong>02</strong>
+                        <h3>Contenido dinamico</h3>
+                        <p>Los videos reemplazan imagenes planas y hacen que la informacion se sienta viva.</p>
+                    </article>
+                    <article>
+                        <strong>03</strong>
+                        <h3>Compra clara</h3>
+                        <p>Los llamados a la accion siguen cerca del usuario para pasar rapido al catalogo.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="intro" id="molino-el-carmen">
+            <div class="intro-copy">
+                <span class="eyebrow">Nuestro punto de partida</span>
+                <h2>Sobre Molino El Carmen, Motupe</h2>
+                <p>
+                    Molino El Carmen es un centro poblado rural ubicado en Motupe,
+                    Lambayeque. Su entorno combina caminos de campo, actividad agricola
+                    y una comunidad que mantiene viva la relacion entre tierra, trabajo
+                    y alimento.
+                </p>
+                <p>
+                    En MangoMarket usamos este origen como una promesa: comprar fruta no
+                    debe sentirse anonimo. Debe contar una historia clara, cercana y justa
+                    para quienes cultivan y para quienes reciben el producto.
                 </p>
             </div>
 
             <div class="resumen-grid">
                 <article>
                     <span>01</span>
-                    <h3>Elige tus mangos</h3>
-                    <p>Revisa el catalogo y agrega tus variedades favoritas al carrito.</p>
+                    <h3>Origen local</h3>
+                    <p>Visibilizamos el nombre de Motupe y Molino El Carmen en cada experiencia de compra.</p>
                 </article>
 
                 <article>
                     <span>02</span>
-                    <h3>Compra directo</h3>
-                    <p>Tu pedido apoya una cadena mas corta y precios mas justos.</p>
+                    <h3>Compra cercana</h3>
+                    <p>Reducimos pasos innecesarios para conectar mejor al productor con el cliente final.</p>
                 </article>
 
                 <article>
                     <span>03</span>
-                    <h3>Recibe frescura</h3>
-                    <p>Coordinamos entregas pensadas para mantener el sabor natural.</p>
+                    <h3>Frescura cuidada</h3>
+                    <p>La seleccion y coordinacion de pedidos priorizan fruta en buen punto de consumo.</p>
                 </article>
+            </div>
+        </section>
+
+        <section class="historia-origen">
+            <div class="historia-video">
+                <video autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1591073113125-e46713c829ed?q=80&w=1200&auto=format&fit=crop">
+                    <source src="https://videos.pexels.com/video-files/992682/992682-hd_1920_1080_25fps.mp4" type="video/mp4">
+                </video>
+                <span class="video-chip">Mercado fresco</span>
+            </div>
+            <div class="historia-texto">
+                <span class="eyebrow">Una compra con sentido</span>
+                <h2>Mas movimiento, mas confianza</h2>
+                <p>
+                    La portada presenta el origen, el proceso y la propuesta de valor con
+                    escenas en video: mangos seleccionados, atencion cercana y una cadena
+                    comercial que busca ser mas transparente.
+                </p>
+                <ul class="lista-destacada">
+                    <li>Informacion clara sobre el caserio Molino El Carmen.</li>
+                    <li>Videos para mostrar campo, cosecha y producto.</li>
+                    <li>Ruta simple para comprar, coordinar y recibir mangos frescos.</li>
+                </ul>
+                <a class="btn" href="productos.html">Ver catalogo</a>
             </div>
         </section>
     </main>
