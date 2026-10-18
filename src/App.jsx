@@ -1,0 +1,127 @@
+import { useEffect, useState } from "react";
+import { Link, Route, Routes, useLocation } from "react-router-dom";
+
+const CART_KEY = "mangoMarketCarrito";
+const ACCOUNT_KEY = "mangoMarketCuenta";
+
+const products = [
+  { nombre: "Mango Kent", precio: 10, imagen: "https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?q=80&w=1200&auto=format&fit=crop", descripcion: "Pulpa jugosa, sabor dulce y textura firme.", etiqueta: "Más pedido" },
+  { nombre: "Mango Edward", precio: 15, imagen: "https://images.unsplash.com/photo-1553279768-865429fa0078?q=80&w=1200&auto=format&fit=crop", descripcion: "Aroma intenso y equilibrio entre dulzor y frescura.", etiqueta: "Aromático" },
+  { nombre: "Mango Ataulfo", precio: 18, imagen: "https://images.unsplash.com/photo-1591073113125-e46713c829ed?q=80&w=1200&auto=format&fit=crop", descripcion: "Pequeño, cremoso y muy dulce.", etiqueta: "Cremoso" },
+  { nombre: "Mango Haden", precio: 12, imagen: "https://images.unsplash.com/photo-1519096845289-95806ee03a1a?q=80&w=1200&auto=format&fit=crop", descripcion: "Color intenso, pulpa aromática y sabor tropical.", etiqueta: "Tropical" },
+  { nombre: "Mango Tommy Atkins", precio: 11, imagen: "https://images.unsplash.com/photo-1553279768-865429fa0078?q=80&w=1200&auto=format&fit=crop", descripcion: "Firme, resistente y perfecto para jugos o postres.", etiqueta: "Jugos" },
+  { nombre: "Mango Keitt", precio: 14, imagen: "https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?q=80&w=1200&auto=format&fit=crop", descripcion: "Grande, suave y con dulzor delicado.", etiqueta: "Grande" },
+  { nombre: "Mango Criollo", precio: 9, imagen: "https://images.unsplash.com/photo-1591073113125-e46713c829ed?q=80&w=1200&auto=format&fit=crop", descripcion: "Sabor tradicional, jugoso y de cosecha local.", etiqueta: "Local" },
+  { nombre: "Mango Orgánico", precio: 20, imagen: "https://images.unsplash.com/photo-1605027990121-cbae9e0642df?q=80&w=1200&auto=format&fit=crop", descripcion: "Cultivado con prácticas responsables y selección premium.", etiqueta: "Premium" },
+  { nombre: "Mango Bocado", precio: 8, imagen: "https://images.unsplash.com/photo-1519096845289-95806ee03a1a?q=80&w=1200&auto=format&fit=crop", descripcion: "Pequeño, jugoso y perfecto para loncheras.", etiqueta: "Práctico" },
+  { nombre: "Mango Palmer", precio: 13, imagen: "https://images.unsplash.com/photo-1591073113125-e46713c829ed?q=80&w=1200&auto=format&fit=crop", descripcion: "Fruta alargada, pulpa firme y dulzor equilibrado para mesa o cortes.", etiqueta: "Nuevo" },
+  { nombre: "Mango Selección Molino", precio: 17, imagen: "https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?q=80&w=1200&auto=format&fit=crop", descripcion: "Lote elegido por color, aroma y punto de maduración uniforme.", etiqueta: "Origen" },
+  { nombre: "Pack Mixto Motupe", precio: 32, unidad: "pack de 3 kg", imagen: "https://images.unsplash.com/photo-1553279768-865429fa0078?q=80&w=1200&auto=format&fit=crop", descripcion: "Combinación de variedades para probar diferentes texturas y niveles de dulzor.", etiqueta: "Nuevo" },
+];
+
+const slides = [
+  { video: "2239153/2239153-hd_1920_1080_24fps.mp4", poster: "photo-1553279768-865429fa0078", title: "Mangos creciendo en el árbol", text: "El recorrido inicia en la planta, donde la fruta toma color, firmeza y dulzor antes de llegar al cliente." },
+  { video: "6583135/6583135-hd_1920_1080_25fps.mp4", poster: "photo-1500382017468-9049fed747ef", title: "Campo agrícola con vida diaria", text: "Molino El Carmen se presenta desde su identidad rural: caminos, parcelas y trabajo constante." },
+  { video: "7538751/7538751-hd_1920_1080_25fps.mp4", poster: "photo-1601493700631-2b16ec4b4716", title: "Personas detrás de la cosecha", text: "Una cadena más directa ayuda a cuidar la frescura y reconocer mejor el esfuerzo del trabajo agrícola." },
+];
+
+function readStorage(key, fallback) {
+  try { return JSON.parse(localStorage.getItem(key)) ?? fallback; }
+  catch { return fallback; }
+}
+
+function Header({ count }) {
+  const { pathname } = useLocation();
+  const current = pathname === "/checkout.html" ? "/carrito.html" : pathname;
+  const links = [["Inicio", "/index.html"], ["Productos", "/productos.html"], ["Productores", "/productores.html"], ["Contacto", "/contacto.html"], ["Cuenta", "/cuenta.html"]];
+  return <header><nav>
+    <Link className="logo" to="/index.html">MangoMarket</Link>
+    <ul>{links.map(([label, href]) => <li key={href}><Link className={current === href || (href === "/index.html" && pathname === "/") ? "activo" : ""} to={href}>{label}</Link></li>)}</ul>
+    <Link className={`carrito-icono ${current === "/carrito.html" ? "activo" : ""}`} to="/carrito.html">Carrito: <span>{count}</span></Link>
+  </nav></header>;
+}
+
+function Footer() { return <footer><p>&copy; 2026 MangoMarket - Apoyando agricultores peruanos</p></footer>; }
+
+function PageHero({ className, eyebrow, title, children }) {
+  return <section className={`page-hero ${className}`}><div>{eyebrow && <span className="eyebrow">{eyebrow}</span>}<h1>{title}</h1><p>{children}</p></div></section>;
+}
+
+function HomePage() {
+  const [slide, setSlide] = useState(0);
+  useEffect(() => {
+    const timer = window.setInterval(() => setSlide((current) => (current + 1) % slides.length), 4800);
+    return () => window.clearInterval(timer);
+  }, []);
+  const changeSlide = (amount) => setSlide((current) => (current + amount + slides.length) % slides.length);
+  return <main>
+    <section className="hero hero-inicio video-hero"><video className="video-fondo" autoPlay muted loop playsInline aria-hidden="true" poster="https://images.unsplash.com/photo-1591073113125-e46713c829ed?q=80&w=1600&auto=format&fit=crop"><source src="https://videos.pexels.com/video-files/1584823/1584823-hd_1920_1080_30fps.mp4" type="video/mp4" /></video><div className="hero-text"><span className="eyebrow">Caserío Molino El Carmen - Motupe</span><h1>Mangos frescos con una historia que se ve en movimiento</h1><p>MangoMarket acerca el sabor del norte del Perú a familias y negocios, destacando la identidad rural de Molino El Carmen, una comunidad de Motupe vinculada al trabajo agrícola, la cosecha y la vida de campo.</p><div className="hero-acciones"><Link className="btn" to="/productos.html">Comprar ahora</Link><a className="btn btn-claro" href="#molino-el-carmen">Conocer el origen</a></div></div><aside className="hero-panel"><p className="panel-etiqueta">Origen destacado</p><h2>Molino El Carmen</h2><p>Caserío rural del distrito de Motupe, provincia y región Lambayeque.</p><div className="metricas-origen"><span><strong>Motupe</strong>Distrito</span><span><strong>179 m</strong>Altitud aprox.</span><span><strong>Rural</strong>Identidad local</span></div></aside></section>
+    <section className="carrusel-seccion" aria-labelledby="carrusel-titulo"><div className="seccion-encabezado"><span className="eyebrow">Campo, cosecha y comunidad</span><h2 id="carrusel-titulo">El camino del mango en video</h2><p>Cada escena muestra una parte del proceso: cultivo, selección, trabajo en campo y entrega. La portada deja de sentirse estática para contar el origen con movimiento.</p></div><div className="carrusel"><div className="carrusel-track">{slides.map((item, index) => <article className={`carrusel-slide ${index === slide ? "activo" : ""}`} aria-hidden={index !== slide} key={item.video}><video autoPlay={index === slide} muted loop playsInline poster={`https://images.unsplash.com/${item.poster}?q=80&w=1500&auto=format&fit=crop`}><source src={`https://videos.pexels.com/video-files/${item.video}`} type="video/mp4" /></video><div className="slide-contenido"><span>0{index + 1}</span><h3>{item.title}</h3><p>{item.text}</p></div></article>)}</div><button className="carrusel-control anterior" type="button" onClick={() => changeSlide(-1)} aria-label="Escena anterior">&lsaquo;</button><button className="carrusel-control siguiente" type="button" onClick={() => changeSlide(1)} aria-label="Escena siguiente">&rsaquo;</button><div className="carrusel-progreso" aria-hidden="true"><span key={slide} /></div><div className="carrusel-puntos" aria-label="Navegación del carrusel">{slides.map((item, index) => <button className={index === slide ? "activo" : ""} type="button" key={item.video} onClick={() => setSlide(index)} aria-label={`Ver escena ${index + 1}`} />)}</div></div></section>
+    <section className="experiencia-webflow"><video className="video-fondo" autoPlay muted loop playsInline aria-hidden="true" poster="https://images.unsplash.com/photo-1553279768-865429fa0078?q=80&w=1600&auto=format&fit=crop"><source src="https://videos.pexels.com/video-files/20054254/20054254-hd_1920_1080_25fps.mp4" type="video/mp4" /></video><div className="experiencia-contenido"><span className="eyebrow">Experiencia inmersiva</span><h2>Una portada con ritmo, capas y profundidad visual</h2><p>Inspirada en composiciones modernas, la página combina video, tarjetas de datos, texto editorial y transiciones suaves para que MangoMarket se sienta más actual y confiable.</p><div className="flujo-grid"><article><strong>01</strong><h3>Origen visible</h3><p>Molino El Carmen aparece desde el primer vistazo como parte central de la marca.</p></article><article><strong>02</strong><h3>Contenido dinámico</h3><p>Los videos reemplazan imágenes planas y hacen que la información se sienta viva.</p></article><article><strong>03</strong><h3>Compra clara</h3><p>Los llamados a la acción siguen cerca del usuario para pasar rápido al catálogo.</p></article></div></div></section>
+    <section className="intro" id="molino-el-carmen"><div className="intro-copy"><span className="eyebrow">Nuestro punto de partida</span><h2>Sobre Molino El Carmen, Motupe</h2><p>Molino El Carmen es un centro poblado rural ubicado en Motupe, Lambayeque. Su entorno combina caminos de campo, actividad agrícola y una comunidad que mantiene viva la relación entre tierra, trabajo y alimento.</p><p>En MangoMarket usamos este origen como una promesa: comprar fruta no debe sentirse anónimo. Debe contar una historia clara, cercana y justa para quienes cultivan y para quienes reciben el producto.</p></div><div className="resumen-grid"><article><span>01</span><h3>Origen local</h3><p>Visibilizamos el nombre de Motupe y Molino El Carmen en cada experiencia de compra.</p></article><article><span>02</span><h3>Compra cercana</h3><p>Reducimos pasos innecesarios para conectar mejor al productor con el cliente final.</p></article><article><span>03</span><h3>Frescura cuidada</h3><p>La selección y coordinación de pedidos priorizan fruta en buen punto de consumo.</p></article></div></section>
+    <section className="historia-origen"><div className="historia-video"><video autoPlay muted loop playsInline poster="https://images.unsplash.com/photo-1591073113125-e46713c829ed?q=80&w=1200&auto=format&fit=crop"><source src="https://videos.pexels.com/video-files/992682/992682-hd_1920_1080_25fps.mp4" type="video/mp4" /></video><span className="video-chip">Mercado fresco</span></div><div className="historia-texto"><span className="eyebrow">Una compra con sentido</span><h2>Más movimiento, más confianza</h2><p>La portada presenta el origen, el proceso y la propuesta de valor con escenas en video: mangos seleccionados, atención cercana y una cadena comercial que busca ser más transparente.</p><ul className="lista-destacada"><li>Información clara sobre el caserío Molino El Carmen.</li><li>Videos para mostrar campo, cosecha y producto.</li><li>Ruta simple para comprar, coordinar y recibir mangos frescos.</li></ul><Link className="btn" to="/productos.html">Ver catálogo</Link></div></section>
+  </main>;
+}
+
+function ProductsPage({ onAdd }) {
+  return <main><PageHero className="productos-hero" eyebrow="Selección fresca de Motupe" title="Catálogo de mangos">Variedades dulces, packs de temporada y selección premium para mesa, jugos o negocio.</PageHero><section className="productos productos-catalogo"><div className="catalogo-encabezado"><div><span className="eyebrow">Compra directa</span><h2>Elige por sabor, uso y punto de madurez</h2><p>Productos pensados para pedidos familiares, restaurantes y pequeños negocios que buscan fruta fresca con origen claro.</p></div><div className="catalogo-metricas" aria-label="Resumen del catálogo"><span><strong>12</strong>productos</span><span><strong>3</strong>nuevos</span><span><strong>24 h</strong>coordinación</span></div></div><div className="catalogo-panel"><div className="catalogo-barra"><p>Disponibilidad de temporada</p><strong>Molino El Carmen - Motupe</strong></div><div className="cards">{products.map((product) => <article className="card" key={product.nombre}><div className="card-media"><img src={product.imagen} alt={product.nombre} /><span>{product.etiqueta}</span></div><div className="card-contenido"><h3>{product.nombre}</h3><p>{product.descripcion}</p><p className="precio">S/ {product.precio} {product.unidad || "por kilo"}</p><button type="button" onClick={() => onAdd(product)}>Agregar al carrito</button></div></article>)}</div></div></section></main>;
+}
+
+function ProducersPage() {
+  return <main><PageHero className="productores-hero" title="Productores aliados">Trabajamos con agricultores que conocen cada etapa del cultivo.</PageHero><section className="contenido"><h2>Agricultores peruanos</h2><div className="productores-grid"><article><h3>Valle de Tambogrande</h3><p>Productores especializados en mangos Kent de pulpa firme, dulzor equilibrado y excelente presentación.</p></article><article><h3>Cooperativa San Lorenzo</h3><p>Familias agricultoras que seleccionan cada cosecha para entregar fruta fresca con trazabilidad.</p></article><article><h3>Finca El Sol</h3><p>Cultivos manejados con riego responsable y cuidado constante desde la floración hasta la entrega.</p></article></div></section></main>;
+}
+
+function ContactPage() {
+  const submit = (event) => { event.preventDefault(); window.alert("Gracias por escribirnos. Te contactaremos pronto."); event.currentTarget.reset(); };
+  return <main><PageHero className="contacto-hero" title="Contacto">Cuéntanos qué necesitas y coordinamos tu pedido.</PageHero><section className="contacto"><div className="datos-contacto"><h2>Hablemos</h2><p><strong>WhatsApp:</strong> +51 999 888 777</p><p><strong>Correo:</strong> ventas@mangomarket.pe</p><p><strong>Atención:</strong> Lunes a sábado, 8:00 a. m. - 6:00 p. m.</p></div><form className="formulario-contacto" onSubmit={submit}><label htmlFor="nombre">Nombre</label><input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required /><label htmlFor="correo">Correo</label><input type="email" id="correo" name="correo" placeholder="tu@email.com" required /><label htmlFor="mensaje">Mensaje</label><textarea id="mensaje" name="mensaje" rows="5" placeholder="Escribe tu pedido o consulta" required /><button type="submit">Enviar mensaje</button></form></section></main>;
+}
+
+function AccountPage({ account, setAccount }) {
+  const submit = (event, kind) => {
+    event.preventDefault();
+    const values = Object.fromEntries(new FormData(event.currentTarget));
+    setAccount({ nombre: values.nombre || account?.nombre || "Cliente MangoMarket", correo: values.correo });
+    window.alert(kind === "registro" ? "Cuenta creada correctamente." : "Sesión iniciada correctamente.");
+    event.currentTarget.reset();
+  };
+  return <main><PageHero className="cuenta-hero" title="Únete a MangoMarket">Crea una cuenta o inicia sesión para guardar tus datos de pedido.</PageHero><section className="cuenta"><div className="estado-cuenta">{account ? <><h2>Hola, {account.nombre}</h2><p>Sesión activa con {account.correo}. Tus datos quedan listos para futuros pedidos.</p><button type="button" onClick={() => setAccount(null)}>Cerrar sesión</button></> : <><h2>Cuenta</h2><p>Ingresa o regístrate para comprar más rápido.</p></>}</div><div className="cuenta-grid"><form className="formulario-cuenta" onSubmit={(event) => submit(event, "registro")}><h2>Crear cuenta</h2><label htmlFor="registro-nombre">Nombre completo</label><input type="text" id="registro-nombre" name="nombre" placeholder="Tu nombre" required /><label htmlFor="registro-correo">Correo</label><input type="email" id="registro-correo" name="correo" placeholder="tu@email.com" required /><label htmlFor="registro-password">Contraseña</label><input type="password" id="registro-password" name="password" placeholder="Mínimo 6 caracteres" minLength="6" required /><button type="submit">Registrarse</button></form><form className="formulario-cuenta" onSubmit={(event) => submit(event, "login")}><h2>Iniciar sesión</h2><label htmlFor="login-correo">Correo</label><input type="email" id="login-correo" name="correo" placeholder="tu@email.com" required /><label htmlFor="login-password">Contraseña</label><input type="password" id="login-password" name="password" placeholder="Tu contraseña" required /><button type="submit">Unirse</button></form></div></section></main>;
+}
+
+function CartPage({ cart, setCart }) {
+  const total = cart.reduce((sum, item) => sum + Number(item.precio), 0);
+  return <main><PageHero className="carrito-hero" title="Carrito de compras">Revisa tus mangos seleccionados antes de coordinar el pedido.</PageHero><section className="carrito carrito-page"><div className="carrito-resumen"><h2>Tu pedido</h2><div>{cart.length ? cart.map((item, index) => <div className="item-carrito" key={`${item.nombre}-${index}`}><div><strong>{item.nombre}</strong><span>S/ {Number(item.precio).toFixed(2)}</span></div><button className="btn-eliminar" type="button" onClick={() => setCart((items) => items.filter((_, itemIndex) => itemIndex !== index))}>Eliminar</button></div>) : <p className="carrito-vacio">Tu carrito está vacío.</p>}</div><h3>Total: S/ <span>{total.toFixed(2)}</span></h3><div className="carrito-acciones"><Link className="btn btn-secundario" to="/productos.html">Seguir comprando</Link><Link className={`btn ${cart.length ? "" : "deshabilitado"}`} aria-disabled={!cart.length} onClick={(event) => !cart.length && event.preventDefault()} to="/checkout.html">Finalizar compra</Link><button type="button" onClick={() => setCart([])}>Vaciar carrito</button></div></div></section></main>;
+}
+
+function CheckoutPage({ cart, setCart, account }) {
+  const [receipt, setReceipt] = useState(null);
+  const [kind, setKind] = useState("boleta");
+  const total = cart.reduce((sum, item) => sum + Number(item.precio), 0);
+  const submit = (event) => {
+    event.preventDefault();
+    const values = Object.fromEntries(new FormData(event.currentTarget));
+    const subtotal = total / 1.18;
+    setReceipt({ ...values, tipo: kind === "factura" ? "Factura" : "Boleta", cliente: kind === "factura" ? values.razonSocial : values.boletaNombre, documento: kind === "factura" ? values.ruc : values.dni, numero: `MM-${Date.now()}`, fecha: new Date().toLocaleString("es-PE"), direccion: `${values.direccion} - ${values.distrito}`, referenciaPago: values.numeroPago.length > 4 ? `**** ${values.numeroPago.slice(-4)}` : values.numeroPago, productos: cart, subtotal, igv: total - subtotal, total });
+    setCart([]);
+    event.currentTarget.reset();
+    setKind("boleta");
+  };
+  return <main><PageHero className="checkout-hero" title="Finalizar compra">Completa tus datos, elige comprobante y confirma el pago.</PageHero><section className="checkout"><aside className="resumen-checkout"><h2>Resumen</h2>{cart.length ? cart.map((item, index) => <div className="item-resumen" key={`${item.nombre}-${index}`}><strong>{item.nombre}</strong><span>S/ {Number(item.precio).toFixed(2)}</span></div>) : <p className="carrito-vacio">Tu carrito está vacío. Vuelve al catálogo para agregar productos.</p>}<h3>Total: S/ {total.toFixed(2)}</h3><Link className="btn btn-secundario" to="/carrito.html">Editar carrito</Link></aside>
+    <form className={`formulario-checkout ${cart.length ? "" : "deshabilitado-formulario"}`} onSubmit={submit}><h2>Datos de compra</h2><label htmlFor="tipo-comprobante">Tipo de comprobante</label><select id="tipo-comprobante" name="tipoComprobante" value={kind} onChange={(event) => setKind(event.target.value)} required><option value="boleta">Boleta</option><option value="factura">Factura</option></select>{kind === "boleta" ? <div className="datos-comprobante"><label htmlFor="boleta-nombre">Nombre completo</label><input type="text" id="boleta-nombre" name="boletaNombre" defaultValue={account?.nombre || ""} placeholder="Nombre del comprador" required /><label htmlFor="boleta-dni">DNI</label><input type="text" id="boleta-dni" name="dni" placeholder="8 dígitos" maxLength="8" pattern="[0-9]{8}" required /></div> : <div className="datos-comprobante"><label htmlFor="factura-razon">Razón social</label><input type="text" id="factura-razon" name="razonSocial" placeholder="Nombre de la empresa" required /><label htmlFor="factura-ruc">RUC</label><input type="text" id="factura-ruc" name="ruc" placeholder="11 dígitos" maxLength="11" pattern="[0-9]{11}" required /></div>}<label htmlFor="correo-compra">Correo para enviar el comprobante</label><input type="email" id="correo-compra" name="correo" defaultValue={account?.correo || ""} placeholder="tu@email.com" required /><label htmlFor="telefono-compra">Teléfono</label><input type="tel" id="telefono-compra" name="telefono" placeholder="+51 999 888 777" required /><label htmlFor="direccion-compra">Dirección de entrega</label><input type="text" id="direccion-compra" name="direccion" placeholder="Av., calle, número, referencia" required /><label htmlFor="distrito-compra">Distrito y ciudad</label><input type="text" id="distrito-compra" name="distrito" placeholder="Distrito, ciudad" required /><label htmlFor="metodo-pago">Método de pago</label><select id="metodo-pago" name="metodoPago" required><option value="Tarjeta">Tarjeta</option><option value="Yape o Plin">Yape o Plin</option><option value="Transferencia bancaria">Transferencia bancaria</option></select><label htmlFor="numero-pago">Número de tarjeta, operación o referencia</label><input type="text" id="numero-pago" name="numeroPago" placeholder="Referencia del pago" required /><label htmlFor="titular-pago">Titular del pago</label><input type="text" id="titular-pago" name="titularPago" placeholder="Nombre del titular" required /><button type="submit" disabled={!cart.length}>Pagar y generar comprobante</button></form>
+    {receipt && <section className="comprobante"><div className="comprobante-encabezado"><div><p className="etiqueta-comprobante">{receipt.tipo}</p><h2>{receipt.numero}</h2><p>{receipt.fecha}</p></div><button type="button" onClick={() => window.print()}>Imprimir</button></div><div className="comprobante-datos"><p><strong>Cliente:</strong> {receipt.cliente}</p><p><strong>Documento:</strong> {receipt.documento}</p><p><strong>Correo:</strong> {receipt.correo}</p><p><strong>Teléfono:</strong> {receipt.telefono}</p><p><strong>Entrega:</strong> {receipt.direccion}</p><p><strong>Pago:</strong> {receipt.metodoPago}</p><p><strong>Referencia:</strong> {receipt.referenciaPago}</p><p><strong>Titular:</strong> {receipt.titularPago}</p></div><div className="comprobante-tabla">{receipt.productos.map((item, index) => <div key={`${item.nombre}-${index}`}><span>{item.nombre}</span><strong>S/ {Number(item.precio).toFixed(2)}</strong></div>)}</div><div className="totales-comprobante"><p>Subtotal: S/ {receipt.subtotal.toFixed(2)}</p><p>IGV 18%: S/ {receipt.igv.toFixed(2)}</p><h3>Total pagado: S/ {receipt.total.toFixed(2)}</h3><p>Comprobante generado para {receipt.correo}.</p></div></section>}
+  </section></main>;
+}
+
+export default function App() {
+  const { pathname } = useLocation();
+  const [cart, setCart] = useState(() => readStorage(CART_KEY, []));
+  const [account, setAccount] = useState(() => readStorage(ACCOUNT_KEY, null));
+  useEffect(() => {
+    const page = pathname.split("/").pop()?.replace(".html", "") || "index";
+    const names = { index: "Inicio", productos: "Productos", productores: "Productores", contacto: "Contacto", cuenta: "Cuenta", carrito: "Carrito", checkout: "Finalizar compra" };
+    document.title = `MangoMarket | ${names[page] || names.index}`;
+  }, [pathname]);
+  useEffect(() => { localStorage.setItem(CART_KEY, JSON.stringify(cart)); }, [cart]);
+  useEffect(() => { if (account) localStorage.setItem(ACCOUNT_KEY, JSON.stringify(account)); else localStorage.removeItem(ACCOUNT_KEY); }, [account]);
+  const addToCart = (product) => { setCart((items) => [...items, { nombre: product.nombre, precio: product.precio }]); window.alert(`${product.nombre} agregado al carrito`); };
+  return <><Header count={cart.length} /><Routes><Route path="/" element={<HomePage />} /><Route path="/index.html" element={<HomePage />} /><Route path="/productos.html" element={<ProductsPage onAdd={addToCart} />} /><Route path="/productores.html" element={<ProducersPage />} /><Route path="/contacto.html" element={<ContactPage />} /><Route path="/cuenta.html" element={<AccountPage account={account} setAccount={setAccount} />} /><Route path="/carrito.html" element={<CartPage cart={cart} setCart={setCart} />} /><Route path="/checkout.html" element={<CheckoutPage cart={cart} setCart={setCart} account={account} />} /><Route path="*" element={<HomePage />} /></Routes><Footer /></>;
+}

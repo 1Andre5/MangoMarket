@@ -1,0 +1,19 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "MangoMarket: verify git push",
+			"type": "shell",
+			"command": "$git = 'C:\\Users\\padillay\\AppData\\Local\\Programs\\Git\\cmd\\git.exe'; & $git status --short --branch; & $git ls-remote origin refs/heads/main",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "MangoMarket: push main",
+			"type": "shell",
+			"command": "$git = 'C:\\Users\\padillay\\AppData\\Local\\Programs\\Git\\cmd\\git.exe'; & $git push --verbose origin main; if ($LASTEXITCODE -eq 0) { & $git ls-remote origin refs/heads/main }",
+			"isBackground": false,
+			"problemMatcher": []
+		}
+	]
+}

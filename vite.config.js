@@ -1,0 +1,16 @@
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const root = dirname(fileURLToPath(import.meta.url));
+const pages = ["index", "productos", "productores", "contacto", "cuenta", "carrito", "checkout"];
+
+export default defineConfig({
+  plugins: [react()],
+  build: {
+    rollupOptions: {
+      input: Object.fromEntries(pages.map((page) => [page, resolve(root, `${page}.html`)])),
+    },
+  },
+});
